@@ -1,0 +1,7 @@
+name: Gamehub
+version: '${project.version}'
+main: community.gamehub.gamehub.Gamehub
+api-version: 1.19
+commands:
+  test:
+    description: test
