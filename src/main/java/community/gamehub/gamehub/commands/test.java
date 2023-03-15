@@ -16,7 +16,7 @@ public class test implements CommandExecutor {
             Player p = (Player) sender;
             if (p.isOp()) {
                 p.sendMessage(Component.text(( "You have successfully jumped.")).color(TextColor.color(0, 255, 100)));
-                p.setVelocity(new Vector(0.0, 10.0, 0.0));
+                p.setVelocity(new Vector(0.0, 100.0, 0.0));
             } else {
                 p.sendMessage(Component.text(( "You do not have permission to use this command.")).color(TextColor.color(255,0,0)));
             }

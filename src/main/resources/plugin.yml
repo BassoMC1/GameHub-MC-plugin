@@ -5,3 +5,5 @@ api-version: 1.19
 commands:
   test:
     description: test
+  Announcement:
+    description: Say somting
