@@ -1,15 +1,19 @@
 package community.gamehub.gamehub;
 
+import com.google.gson.Gson;
 import community.gamehub.gamehub.commands.Announcement;
 import community.gamehub.gamehub.commands.test;
 import community.gamehub.gamehub.events.EventTestHandlers;
+import community.gamehub.gamehub.util.Person;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 public final class Gamehub extends JavaPlugin {
@@ -21,6 +25,7 @@ public final class Gamehub extends JavaPlugin {
         GetCommands();
         GetEvents();
         Config();
+        TestJson();
     }
     @Override
     public void onDisable() {
@@ -52,5 +57,23 @@ public final class Gamehub extends JavaPlugin {
             e.printStackTrace();
         }
 
+    }
+
+    public void TestJson() {
+        Gson gson = new Gson();
+        File dataFolder = getDataFolder();
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+        File jsonFile = new File(dataFolder, "person.json");
+        try (Writer writer = new FileWriter(jsonFile)) {
+            Person person = new Person();
+            person.setName("John Smith");
+            person.setAge(30);
+            person.setEmail("john.smith@example.com");
+            gson.toJson(person, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

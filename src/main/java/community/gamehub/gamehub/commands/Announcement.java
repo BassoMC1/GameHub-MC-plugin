@@ -40,7 +40,6 @@ public class Announcement implements CommandExecutor {
 
 
 
-
                 player.sendMessage(Component.text(( "The message is now send to all people on the server")).color(TextColor.color(0, 255, 100)));
 
                 String message = String.join(" ", args);
