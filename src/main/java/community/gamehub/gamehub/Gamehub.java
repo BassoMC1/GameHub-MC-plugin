@@ -44,6 +44,8 @@ public final class Gamehub extends JavaPlugin {
         config.options().copyDefaults(true); // copy missing keys from the default configuration
         config.addDefault("AnnouncementColor", "255, 255, 255");
         config.addDefault("messageColor", "255, 255, 255");
+       // AnnouncementColor = [server Announcement];
+       // messageColor = The message that u send;
         try {
             config.save(configFile);
         } catch (IOException e) {
@@ -51,6 +53,4 @@ public final class Gamehub extends JavaPlugin {
         }
 
     }
-
-
 }
