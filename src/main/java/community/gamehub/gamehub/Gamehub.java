@@ -57,7 +57,7 @@ public final class Gamehub extends JavaPlugin {
             e.printStackTrace();
         }
 
-    }
+    }//s
 
     public void TestJson() {
         Gson gson = new Gson();
