@@ -1,20 +1,13 @@
 package community.gamehub.gamehub;
 
-import com.google.gson.Gson;
 import community.gamehub.gamehub.commands.Announcement;
 import community.gamehub.gamehub.commands.test;
 import community.gamehub.gamehub.events.EventTestHandlers;
-import community.gamehub.gamehub.util.Person;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
+import java.io.*;
+import java.util.Scanner;
 
 public final class Gamehub extends JavaPlugin {
 
@@ -57,23 +50,47 @@ public final class Gamehub extends JavaPlugin {
             e.printStackTrace();
         }
 
-    }//s
+    }
 
     public void TestJson() {
-        Gson gson = new Gson();
-        File dataFolder = getDataFolder();
-        if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
-        }
-        File jsonFile = new File(dataFolder, "person.json");
-        try (Writer writer = new FileWriter(jsonFile)) {
-            Person person = new Person();
-            person.setName("John Smith");
-            person.setAge(30);
-            person.setEmail("john.smith@example.com");
-            gson.toJson(person, writer);
-        } catch (IOException e) {
+        try {
+            File file = new File(getDataFolder(), "filename.txt");
+
+            if (file.createNewFile()) {
+                getLogger().info("File created: " + file.getName());
+                FileWriter writer = new FileWriter(file, true);
+                writer.write("username>password>id,user1>pass1>id1");
+                writer.close();
+            } else {
+                getLogger().info("File already exists.");
+            }
+
+
+            String data = "";
+
+            Scanner myReader = new Scanner(file);
+            while (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+                String[] lineArray = data.split(",");
+
+                String key = lineArray[0];
+                String value = lineArray[1];
+
+                String[] keys = key.split(">");
+                String[] values = value.split(">");
+
+               // Map<String, String> user = new HashMap<>();
+                for (int i = 0; i < keys.length; i++) {
+                    getLogger().info(keys[i] + ":" + values[i]);
+                }
+
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            getLogger().info("An error occurred.");
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
