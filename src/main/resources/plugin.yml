@@ -7,3 +7,5 @@ commands:
     description: test
   Announcement:
     description: Say somting
+  RankAddUser:
+    description: Add A rank to a user.

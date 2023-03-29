@@ -1,15 +1,16 @@
 package community.gamehub.gamehub;
 
 import community.gamehub.gamehub.commands.Announcement;
-import community.gamehub.gamehub.commands.test;
-import community.gamehub.gamehub.events.EventTestHandlers;
+import community.gamehub.gamehub.commands.RankAddUser;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
-public final class Gamehub extends JavaPlugin {
+public class Gamehub extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -18,7 +19,7 @@ public final class Gamehub extends JavaPlugin {
         GetCommands();
         GetEvents();
         Config();
-        TestJson();
+        TestDbTextFile();
     }
     @Override
     public void onDisable() {
@@ -28,6 +29,7 @@ public final class Gamehub extends JavaPlugin {
     public void GetCommands() {
        // getCommand("test").setExecutor(new test());
         getCommand("Announcement").setExecutor(new Announcement());
+        getCommand("RankAddUser").setExecutor(new RankAddUser(this));
     }
 
     public void GetEvents() {
@@ -52,38 +54,42 @@ public final class Gamehub extends JavaPlugin {
 
     }
 
-    public void TestJson() {
+    public void TestDbTextFile() {
         try {
             File file = new File(getDataFolder(), "filename.txt");
-
             if (file.createNewFile()) {
                 getLogger().info("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file, true);
-                writer.write("username>password>id,user1>pass1>id1");
+                writer.write("#Imporntent This is the DataBase for Gamehub Ranks\n#DO not remove ore chance any ting in this file.\n");
                 writer.close();
             } else {
                 getLogger().info("File already exists.");
             }
 
-
-            String data = "";
-
+            String data;
             Scanner myReader = new Scanner(file);
+
             while (myReader.hasNextLine()) {
                 data = myReader.nextLine();
-                String[] lineArray = data.split(",");
+                if (Objects.equals(data, "#Imporntent This is the DataBase for Gamehub Ranks")) {
+                    //do noting
 
-                String key = lineArray[0];
-                String value = lineArray[1];
+                } else if (Objects.equals(data, "#DO not remove ore chance any ting in this file.")) {
+                    //do noting
+                } else {
+                    String[] lineArray = data.split(",");
 
-                String[] keys = key.split(">");
-                String[] values = value.split(">");
+                    String key = lineArray[0];
+                    String value = lineArray[1];
 
-               // Map<String, String> user = new HashMap<>();
-                for (int i = 0; i < keys.length; i++) {
-                    getLogger().info(keys[i] + ":" + values[i]);
+                    String[] keys = key.split(">");
+                    String[] values = value.split(">");
+
+                    // Map<String, String> user = new HashMap<>();
+                    for (int i = 0; i < keys.length; i++) {
+                        getLogger().info(keys[i] + ":" + values[i]);
+                    }
                 }
-
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -93,4 +99,6 @@ public final class Gamehub extends JavaPlugin {
             throw new RuntimeException(e);
         }
     }
+
+
 }
