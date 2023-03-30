@@ -56,7 +56,7 @@ public class Gamehub extends JavaPlugin {
 
     public void TestDbTextFile() {
         try {
-            File file = new File(getDataFolder(), "filename.txt");
+            File file = new File(getDataFolder(), "Rank.txt");
             if (file.createNewFile()) {
                 getLogger().info("File created: " + file.getName());
                 FileWriter writer = new FileWriter(file, true);

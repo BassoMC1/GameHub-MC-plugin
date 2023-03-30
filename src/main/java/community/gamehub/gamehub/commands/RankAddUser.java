@@ -35,7 +35,7 @@ public class RankAddUser implements CommandExecutor {
                     String arg2 = args[1];
 
                     FileWriter writer;
-                    File file = new File(plugin.getDataFolder(), "filename.txt");
+                    File file = new File(plugin.getDataFolder(), "");
                     Player playerCheck = Bukkit.getPlayer(arg1);
                     if(playerCheck == null) {
                         player.sendMessage("Can't find that username");
